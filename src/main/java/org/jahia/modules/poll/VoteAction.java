@@ -54,7 +54,6 @@ import org.jahia.services.render.URLResolver;
 import org.json.JSONObject;
 
 import javax.jcr.NodeIterator;
-import javax.jcr.version.VersionManager;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
@@ -69,7 +68,7 @@ import java.util.List;
  * Time: 10:30:20 AM
  */
 public class VoteAction extends Action {
-     private transient static Logger logger = org.slf4j.LoggerFactory.getLogger(VoteAction.class);
+    private transient static Logger logger = org.slf4j.LoggerFactory.getLogger(VoteAction.class);
 
     // Vote action
     public ActionResult doExecute(HttpServletRequest req, RenderContext renderContext, Resource resource,
@@ -77,44 +76,24 @@ public class VoteAction extends Action {
 
         String answerUUID = req.getParameter("answerUUID");
 
-
-
-
-
         // Poll Node management
         // Get the pollNode
         JCRNodeWrapper pollNode = session.getNodeByUUID(renderContext.getMainResource().getNode().getIdentifier());
 
-        // Get a version manager
-        VersionManager versionManager = pollNode.getSession().getWorkspace().getVersionManager();
-
-        // Check out poll node
-        if(!versionManager.isCheckedOut(pollNode.getPath()))
-        	versionManager.checkout(pollNode.getPath());
-
-                        
         // Update total of votes (poll node)
         long totalOfVotes = pollNode.getProperty("totalOfVotes").getLong();
-        pollNode.setProperty("totalOfVotes", totalOfVotes+1);
-
-
+        pollNode.setProperty("totalOfVotes", totalOfVotes + 1);
 
         // Answer node management
         // Get the answer node
-        JCRNodeWrapper answerNode = pollNode.getSession().getNodeByUUID(answerUUID);
-        // Check out answerNode
-        if(!versionManager.isCheckedOut(answerNode.getPath()))
-        	versionManager.checkout(answerNode.getPath());
+        JCRNodeWrapper answerNode = session.getNodeByUUID(answerUUID);
+
         // Increment nb votes
         long nbOfVotes = answerNode.getProperty("nbOfVotes").getLong();
-        answerNode.setProperty("nbOfVotes", nbOfVotes+1);
+        answerNode.setProperty("nbOfVotes", nbOfVotes + 1);
 
         // Save
-        pollNode.getSession().save();
-        // Check in
-        versionManager.checkin(pollNode.getPath());
-        // Check in poll node
-        versionManager.checkin(answerNode.getPath());
+        session.save();
 
         return new ActionResult(HttpServletResponse.SC_OK, null, generateJSONObject(pollNode));
     }
@@ -139,7 +118,7 @@ public class VoteAction extends Action {
 
             answerProperties.put("label", answer.getProperty("label").getString());
             answerProperties.put("nbOfVotes", answerVotes);
-            answerProperties.put("percentage", (totalVote == 0 || answerVotes == 0)?0:(answerVotes/totalVote)*100);
+            answerProperties.put("percentage", (totalVote == 0 || answerVotes == 0) ? 0 : (answerVotes / totalVote) * 100);
 
             answersContainer.add(answerProperties);
         }
