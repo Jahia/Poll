@@ -60,7 +60,7 @@
     <connection>scm:git:git@github.com:Jahia/poll.git</connection>
     <developerConnection>scm:git:git@github.com:Jahia/poll.git</developerConnection>
     <url>scm:git:git@github.com:Jahia/poll.git</url>
-    <tag>HEAD</tag>
+    <tag>2_0_x</tag>
   </scm>
   <repositories>
     <repository>
