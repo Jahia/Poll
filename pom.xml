@@ -52,7 +52,7 @@
     <version>7.0.0.0</version>
   </parent>
   <artifactId>poll</artifactId>
-  <version>2.0.3</version>
+  <version>2.0.4-SNAPSHOT</version>
   <packaging>bundle</packaging>
   <name>Jahia Poll</name>
   <description>These are the custom module (Jahia Poll) for running on a Jahia server.</description>
@@ -60,7 +60,7 @@
     <connection>scm:git:git@github.com:Jahia/poll.git</connection>
     <developerConnection>scm:git:git@github.com:Jahia/poll.git</developerConnection>
     <url>scm:git:git@github.com:Jahia/poll.git</url>
-    <tag>2_0_3</tag>
+    <tag>2_0_x</tag>
   </scm>
   <repositories>
     <repository>
