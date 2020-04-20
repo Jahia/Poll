@@ -62,6 +62,9 @@
     <url>scm:git:git@github.com:Jahia/poll.git</url>
     <tag>HEAD</tag>
   </scm>
+  <properties>
+    <jahia-module-signature>MCwCFHxMguuDP+kr363G9DO6dtaoz6XhAhRh0D7KO8PIvjOE2QozU6CnSDfIcg==</jahia-module-signature>
+  </properties>
   <repositories>
     <repository>
       <releases>
